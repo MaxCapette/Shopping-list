@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping List</title>
+  <meta name="description" content="Un gestionnaire de tâches, pour vous aider au quotidien">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  
+  <header>
+    <h1>Shopping List</h1>
+  </header>
+
+  <main>
+
+    <div class="create-task-container">
+      <button id="create-task-btn">new</button>
+    </div>
+
+    <div class="message success" hidden>
+      la nouvelle tâche a bien été ajoutée
+    </div>
+    <div class="message danger" hidden>
+      oops, impossible de sauvegarder la tâche
+    </div>
+    
+    <ul class="tasklist">
+      <li data-id="0">
+        <p>titre</p>
+        <!-- <em>nom de la categorie</em> -->
+        <div class="delete"></div>
+        <div class="edit"></div>
+      </li>
+    </ul>
+
+    <div class="modal-dialog">
+      <form id="task-create-form">
+        <h2>nouveau</h2>
+        <label for="task-title" class="screen-reader-only">titre</label>
+        <input name= "id" id="task-id" type="hidden">
+        <input name= "title" id="task-title" placeholder="titre..." type="text" required>
+        <!-- <label for="category">Choisir une catégorie</label>
+            <select name="category_id" id="task-category">
+           <option value="">Choisir une catégorie</option>
+        </select> -->
+
+
+       
+        <button>valider</button>
+      </form>
+    </div>
+
+  </main>
+
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>
