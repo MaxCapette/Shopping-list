@@ -35,7 +35,18 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|between:3,255',
+            // 'category_id' => 'required|integer'
+        ]);
+        // Create the task
+        $task = Task::create([
+            'title' => $validatedData['title'],
+            // 'category_id' => $validatedData['category_id']
+        ]);
+        return $task
+        // ->load('category')
+        ; // return the task with its category and tags
     }
 
     /**
@@ -80,6 +91,10 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+    // Find the task by id
+    $task = Task::findOrFail($id);
+    // $task->tags()->detach();
+    $task->delete();
+    return response()->noContent();
     }
 }
