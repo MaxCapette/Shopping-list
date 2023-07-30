@@ -14,18 +14,20 @@ class TaskController extends Controller
      */
     public function index()
     {
-         return Task::all();
+         return Task::all()->load('category');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show($id)
     {
-        //
+        return Task::findOrFail($id)->load('category');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -37,38 +39,14 @@ class TaskController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|string|between:3,255',
-            // 'category_id' => 'required|integer'
+             'category_id' => 'nullable|integer|exists:categories,id'
         ]);
         // Create the task
         $task = Task::create([
             'title' => $validatedData['title'],
-            // 'category_id' => $validatedData['category_id']
+            'category_id' => $validatedData['category_id']
         ]);
-        return $task
-        // ->load('category')
-        ; // return the task with its category and tags
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $task->load('category'); // return the task with its category and tags
     }
 
     /**
@@ -84,16 +62,18 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         // Validate the request data
         $validatedData = $request->validate([
-            'title' => 'required|string|between:3,255'
+            'title' => 'required|string|between:3,255',
+             'category_id' => 'nullable|integer|exists:categories,id'
 
         ]);
 
         $task->title = $validatedData['title'];
+        $task->category_id = $validatedData['category_id'];
 
 
         $task->save();
 
-        return $task;
+        return $task->load('category');;
     }
 
     /**
