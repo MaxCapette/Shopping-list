@@ -73,7 +73,7 @@ function showTaskForm(task = null){
     form.classList.add("show");
     const h2 = form.querySelector("h2");
     const categorySelect = form.querySelector("#task-category");
-
+    const selectedValue = categorySelect.value;
     // console.log(task);
     if (task) {
         
@@ -103,6 +103,7 @@ function showTaskForm(task = null){
 
             categorySelect.append(option);
         });
+        
     });
     const closeFormButton = document.querySelector("#close-form-button");
     closeFormButton.addEventListener("click", hideTaskForm);
@@ -121,15 +122,14 @@ form.addEventListener("submit", processForm);
 
 async function processForm(event) {
     event.preventDefault();
-    
+
     const titleInput = document.querySelector("#task-title");
     const title = titleInput.value;
     const categorySelect = document.querySelector("#task-category");
     const category = categorySelect.value; // get the selected categor
     const form = document.querySelector(".modal-dialog");
     // get the id from the form's data-id attribute
-    
-        const id = form.dataset.id;
+    const id = form.dataset.id;
     console.log(id);
     const task = {
         title: title,
