@@ -80,7 +80,20 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Find the task by id and update
+        $task = Task::findOrFail($id);
+        // Validate the request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|between:3,255'
+
+        ]);
+
+        $task->title = $validatedData['title'];
+
+
+        $task->save();
+
+        return $task;
     }
 
     /**
